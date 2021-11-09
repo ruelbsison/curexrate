@@ -130,11 +130,11 @@ HTTP Status 404 (Not Found)
 - Install Docker Engine for your platform. ![Get Dcoker](https://docs.docker.com/engine/install/)
 - Clone this repository
 ```bash
-git clone https://github.com/ruelbsison/curexrate-gateway.git
+git clone https://github.com/ruelbsison/curexrate.git
 ```
 - Run docker-composer
 ```bash
-cd curexrate-gateway
+cd curexrate
 
 docker-compose up
 ```
