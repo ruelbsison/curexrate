@@ -1,0 +1,122 @@
+# Connection url for connection in the DatabaseView:
+# App is available at: http://curexrate-req:18180/exchangeRate
+# and http://curexrate-res:18280/exchangeRateResponse
+# Web Mon is avaiable at: httpp://curexrate-web-mon:18480
+
+version: '3'
+networks:
+ curexrate_network:
+
+services:
+ rabbitmq:
+  image: rabbitmq:3-management-alpine
+  container_name: rabbitmq
+  hostname: rabbitmq
+  ports:
+   - "5672:5672"
+   - "15672:15672"
+  volumes:
+   - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+   - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  networks:
+   curexrate_network:
+
+ mongodb:
+  image: mongo
+  container_name: mongodb
+  hostname: mongodb
+  environment:
+   - MONGO_INITDB_ROOT_USERNAME=root
+   - MONGO_INITDB_ROOT_PASSWORD=pass12345
+  volumes:
+   - /data/db
+  networks:
+   curexrate_network:
+  ports:
+   - "27017:27017"
+
+ mongo-express:
+  image: mongo-express
+  container_name: mongo-express
+  hostname: mongo-express
+  environment:
+   - ME_CONFIG_MONGODB_SERVER=mongodb
+   - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+   - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+   - ME_CONFIG_MONGODB_ADMINPASSWORD=pass12345
+   - ME_CONFIG_BASICAUTH_USERNAME=admin
+   - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+  depends_on:
+   - mongodb
+  networks:
+   curexrate_network:
+  ports:
+   - "8081:8081"
+  volumes:
+   - /data/db
+
+ curexrate-web-client:
+  build:
+   context: .
+   dockerfile: curexrate-web-client/Dockerfile
+  container_name: curexrate-web-client
+  hostname: curexrate-web-client
+  ports:
+   - "80:8080"
+  depends_on:
+  - rabbitmq
+  - mongodb
+  - mongo-express
+  networks:
+   curexrate_network:
+
+ curexrate-res:
+  build:
+   context: .
+   dockerfile: curexrate-response/Dockerfile
+  container_name: curexrate-res
+  hostname: curexrate-res
+  ports:
+   - "18280:18280"
+  depends_on:
+   - mongodb
+   - mongo-express
+  networks:
+   curexrate_network:
+  environment:
+   - SPRING_DATA_MONGODB_HOST=mongodb
+
+ curexrate-req:
+  build:
+   context: .
+   dockerfile: curexrate-request/Dockerfile
+  container_name: curexrate-req
+  hostname: curexrate-req
+  ports:
+   - "18180:18180"
+  depends_on:
+   - rabbitmq
+   - mongodb
+   - mongo-express
+  networks:
+   curexrate_network:
+  environment:
+   - SPRING_RABBITMQ_HOST=rabbitmq
+   - SPRING_DATA_MONGODB_HOST=mongodb
+
+ exchangerate-host:
+  build:
+   context: .
+   dockerfile: exchangerate-host/Dockerfile
+  container_name: exchangerate-host
+  hostname: exchangerate-host
+  depends_on:
+   - rabbitmq
+   - mongodb
+   - mongo-express
+  networks:
+   curexrate_network:
+  environment:
+   - SPRING_RABBITMQ_HOST=rabbitmq
+   - SPRING_DATA_MONGODB_HOST=mongodb
+
