@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.http.HttpHeaders;
@@ -44,6 +45,7 @@ public class ExchangeRateResponseController {
     //     mongoOps = new MongoTemplate(new SimpleMongoClientDbFactory(MongoClients.create(), "exchangeRateStore"));
     // }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(
         value = "/exchangeRateResponse", 
         method = RequestMethod.GET,

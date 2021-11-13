@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
@@ -43,6 +44,7 @@ public class ExchangeRateRequestController {
 
     public ExchangeRateRequestController() {}
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/exchangeRate", method = RequestMethod.GET)
     @ResponseBody
     //public ResponseEntity<String> call(@RequestParam Map<String, Optional<String>> params) {
