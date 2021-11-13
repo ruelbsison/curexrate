@@ -16,7 +16,8 @@ import org.springframework.http.HttpStatus;
 
 import com.deca.gateway.curexrate.model.JsonResource;
 //import org.springframework.data.mongodb.core.MongoTemplate;
-import com.deca.gateway.curexrate.repository.JsonResourceRepository;
+//import com.deca.gateway.curexrate.repository.JsonResourceRepository;
+import com.deca.gateway.curexrate.service.JsonResourceService;
 // import org.springframework.data.mongodb.core.MongoOperations;
 // import org.springframework.data.mongodb.core.MongoTemplate;
 // import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory;
@@ -31,8 +32,11 @@ public class ExchangeRateResponseController {
     //@Autowired
     //private MongoTemplate mongoTemplate;
 
+    //@Autowired
+    //private JsonResourceRepository jsonResourceRepository;
+
     @Autowired
-    private JsonResourceRepository jsonResourceRepository;
+    private JsonResourceService jsonResourceService;
 
     // private final MongoOperations mongoOps;
 
@@ -49,8 +53,10 @@ public class ExchangeRateResponseController {
     public ResponseEntity<Object> call(@RequestParam String resourceId) {
             log.info("Exchange Rate Response resourceId={}", resourceId);
     
-            JsonResource jsonResource = jsonResourceRepository.findById(resourceId);
+            JsonResource jsonResource = jsonResourceService.getJson(resourceId);
+            //JsonResource jsonResource = jsonResourceRepository.findById(resourceId);
             if (jsonResource!=null) {
+                log.info("Exchange Rate Response json={}", jsonResource.getJson());
                 return new ResponseEntity<>(jsonResource.getJson(), HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

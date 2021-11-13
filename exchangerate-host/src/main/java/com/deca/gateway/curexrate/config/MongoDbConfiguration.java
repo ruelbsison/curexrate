@@ -30,7 +30,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@EnableMongoRepositories(basePackages= {"ccom.deca.gateway"})
+@EnableMongoRepositories(basePackages= {"com.deca.gateway"})
 @Configuration
 public class MongoDbConfiguration extends AbstractMongoConfiguration {
 

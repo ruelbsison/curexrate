@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 //import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.boot.web.client.RootUriTemplateHandler;
 
 @Configuration
 public class ExchangeRateHostConfiguration {
@@ -26,7 +30,7 @@ public class ExchangeRateHostConfiguration {
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory());
-        //restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(apiHost));
+        restTemplate.setUriTemplateHandler(new RootUriTemplateHandler(apiHost));
         return restTemplate;
     }
     
