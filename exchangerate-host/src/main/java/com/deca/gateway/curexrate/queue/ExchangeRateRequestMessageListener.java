@@ -62,10 +62,10 @@ public class ExchangeRateRequestMessageListener implements MessageListener {
             log.info("requestParam = {}", requestParam);
 
             String[] keyValue = requestParam.split("=");
-            log.info("key = {}, value = {}", keyValue[0], keyValue[1]);
             if (keyValue[0].isEmpty() || keyValue[1].isEmpty()) {
                 continue;
             }
+            log.info("requestParamList key = {}, value = {}", keyValue[0], keyValue[1]);
             if (keyValue[0].equalsIgnoreCase("date"))
                 urlPath = "/" + keyValue[1];
             else if (keyValue[0].equalsIgnoreCase("resourceId"))
@@ -74,19 +74,24 @@ public class ExchangeRateRequestMessageListener implements MessageListener {
                 params.put(keyValue[0] , keyValue[1]);
             
         }
+
+        if (!params.isEmpty())
+            urlPath = urlPath.concat("?");
+
+        for(String key : params.keySet()) {
+            String value = params.get(key);
+            log.info("params key = {}, value = {}", key, value);
+            if (urlPath.endsWith("?"))
+                urlPath = urlPath.concat(key + "=" + value);
+            else
+                urlPath = urlPath.concat("&" + key + "=" + value);
+        }
             
-        //Parse the string after getting the response
-        //ResponseEntity<String> responseEntity = restTemplate.getForObject(urlPath, String.class, params);
-        //responseEntity.
-        String responseStr = restTemplate.getForObject(urlPath, String.class, params);
+        //String responseStr = restTemplate.getForObject(urlPath, String.class, params);
+        String responseStr = restTemplate.getForObject(urlPath, String.class);
         log.info("onMessage resourceId={}, responseStr = {}", resourceId, responseStr);
 
         JsonResource jsonResource = new JsonResource.Builder(resourceId, responseStr).build();
         jsonResourceService.save(jsonResource);
-        //JsonResource jsonResource = new JsonResource(resourceId, responseStr);
-        //mongoOps.insert(jsonResource);
-        //jsonResourceRepository.save(jsonResource);
-        //mongoTemplate.insert(jsonResource);
-        //mongoTemplate.insert(jsonResource, resourceId);
     }
 }
