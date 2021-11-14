@@ -62,7 +62,7 @@ services:
   container_name: curexrate-web-client
   hostname: curexrate-web-client
   ports:
-   - "80:8080"
+   - "8090:8090"
   depends_on:
   - rabbitmq
   - mongodb
