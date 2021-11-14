@@ -132,7 +132,7 @@ HTTP Status 404 (Not Found)
 ```bash
 git clone https://github.com/ruelbsison/curexrate.git
 ```
-- Run docker-composer
+- Run docker-compose
 ```bash
 cd curexrate
 
@@ -150,7 +150,7 @@ docker container ls
 
 ![exchageRateRequest Queue](images/exchageRateRequest.png)
 
-- Check created exchageRateRequest queue on RabbitMQ.
+- Check created json_resource Collection on MongoDB.
 1. Open this link http://localhost:8081/db/admin/json_resource from MongoDB admin website.
 2. Login using account admin:admin123.
 3. Check if json_resource collection exists.
