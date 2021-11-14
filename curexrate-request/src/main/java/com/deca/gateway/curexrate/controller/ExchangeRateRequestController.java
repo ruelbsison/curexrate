@@ -44,7 +44,7 @@ public class ExchangeRateRequestController {
 
     public ExchangeRateRequestController() {}
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*", exposedHeaders = "Resource-Id, Processing-Time", allowedHeaders = "Resource-Id, Processing-Time")
     @RequestMapping(value = "/exchangeRate", method = RequestMethod.GET)
     @ResponseBody
     //public ResponseEntity<String> call(@RequestParam Map<String, Optional<String>> params) {
@@ -57,8 +57,8 @@ public class ExchangeRateRequestController {
     
         String resourceId = UUID.randomUUID().toString();
             HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.set("resourceId", resourceId);
-            responseHeaders.set("processingTime", "1000");
+            responseHeaders.add("Resource-Id", resourceId);
+            responseHeaders.add("Processing-Time", "200");
             
             log.info("Exchange Rate Request resourceId={}", resourceId);
 
