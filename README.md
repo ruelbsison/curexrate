@@ -79,7 +79,7 @@ This subsection will describe the overall decomposition of the CurExRate gateway
 There are three collaborating components that compose the entire system. Each component running as a microservice are the following.
     
 ## External Interfaces
-### Request Service Endpoint (http://localhost:18180/exchangeRate)
+### Request Service Endpoint http://localhost:18180/exchangeRate
 Request GET Parameters
 Name | Description | Example |
 |---|--------|------|
@@ -96,14 +96,14 @@ HTTP Status 202 (Accepted)
 Response Headers
 | Name | Description | Example |
 |---|--------------|---------|
-|resourceId|universally unique identifier (UUID)| resourceId=123e4567-e89b-12d3-a456-426614174000 |
-|processingTime|Estimated Processing Time|processingTime=1000 |
+|Resource-Id|universally unique identifier (UUID)| Resource-Id=123e4567-e89b-12d3-a456-426614174000 |
+|Processing-Time|Estimated Processing Time|Processing-Time=200 |
 
 Error Responses
 
 HTTP Status 404 (Not Found)
 
-### Response Service Endpoint (http://localhost:18280/exchangeRateResponse)
+### Response Service Endpoint http://localhost:18280/exchangeRateResponse
 Request GET Parameters
 Name | Description | Example |
 |---|--------|------|
@@ -127,7 +127,7 @@ HTTP Status 404 (Not Found)
 - A free service with a potential to grow rapidly must be designed and implemented with Scalability and High Availability. 
 
 ## Setup
-- Install Docker Engine for your platform. ![Get Dcoker](https://docs.docker.com/engine/install/)
+- Install Docker Engine for your platform. https://docs.docker.com/engine/install/
 - Clone this repository
 ```bash
 git clone https://github.com/ruelbsison/curexrate.git
@@ -139,13 +139,28 @@ cd curexrate
 docker-compose up
 ```
 - Containers Or Apps Running
+```bash
+docker container ls
+```
 ![Containers Or Apps Running](images/curexrate-gateway-apps.png)
 - Check created exchageRateRequest queue on RabbitMQ.
+1. Open this link http://localhost:15672 from RabbitMQ management website.
+2. Login using account guest:guest.
+3. Click the Queue tab and check if exchageRateRequest queue exists.
+
 ![exchageRateRequest Queue](images/exchageRateRequest.png)
-> Open this link http://localhost:15672 from RabbitMQ management website.
-> Login using account guest:guest.
-> Click the Queue tab and check if exchageRateRequest queue exists.
+
+- Check created exchageRateRequest queue on RabbitMQ.
+1. Open this link http://localhost:8081/db/admin/json_resource from MongoDB admin website.
+2. Login using account admin:admin123.
+3. Check if json_resource collection exists.
+
+![json_resource Collection](images/json_resource.png)
 
 ## Usage
+1. Open Web Client http://localhost:80.
+2. Client Refresh
+
+![Web Client](images/web_client.png)
 
 **[⬆ Back to Table Of Contents](#table-of-contents)**

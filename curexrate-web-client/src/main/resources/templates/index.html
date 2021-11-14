@@ -7,15 +7,15 @@ Author: Jayesh Chandrapal
 
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Exchange Rates</title>
     <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://code.angularjs.org/1.4.0-beta.1/angular.js" data-semver="1.4.0-beta.1" data-require="angular.js@*"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <script src="/js/script.js"></script>
   </head>
 
   <body ng-controller="mainCtrl">
@@ -68,12 +68,12 @@ Author: Jayesh Chandrapal
           <table class="table table-bordered">
             <thead>
               <th></th>
-              <th ng-show="currencies[0].isselected">INR</th>
               <th ng-show="currencies[1].isselected">EURO</th>
               <th ng-show="currencies[2].isselected">AUD</th>
-              <th ng-show="currencies[3].isselected">BGN</th>
+              <th ng-show="currencies[3].isselected">GBP</th>
               <th ng-show="currencies[4].isselected">JPY</th>
-              <th ng-show="currencies[5].isselected">TRY</th>
+              <th ng-show="currencies[5].isselected">SGD</th>
+              <th ng-show="currencies[0].isselected">PHP</th>
             </thead>
             <tbody>
               <tr>
