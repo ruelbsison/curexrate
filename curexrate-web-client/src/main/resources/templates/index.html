@@ -35,7 +35,6 @@ Author: Jayesh Chandrapal
                   <input type="checkbox" ng-model="currency.isselected" ng-change="saveCurrencyChoice()"> {{ currency.symbol }}
                 </label>
               </div>
-
             </div>
           </div>
           <div class="modal-footer">
@@ -60,6 +59,8 @@ Author: Jayesh Chandrapal
               <i class="glyphicon glyphicon-wrench"></i>
             </button>
     
+            <!-- <select class="dropdown" data-ng-options="c for c in baseCurrencies" data-ng-model="selectedBaseCurrencies.baseCurrency"></select> -->
+
             <button ng-click="refresh()" title="Fetch latest values from web service" 
               class="btn btn-info btn-lg">{{ btnRefreshText }}</button>
             
